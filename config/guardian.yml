@@ -1,0 +1,73 @@
+# Rust-Guardian 기본 설정
+# 핫 리로드 지원 — 파일 변경 시 자동 반영
+
+capture:
+  source: file
+  path: "input.jpg"
+  width: 640
+  height: 480
+  fps: 10
+
+detector:
+  model_path: "models/yunet.onnx"
+  backend: "ort"
+  input_width: 320
+  input_height: 320
+  confidence_threshold: 0.5
+  nms_threshold: 0.4
+  target_labels:
+    - face
+    - license_plate
+  # quantization:
+  #   level: "auto"
+  #   calibration_data: "./calibration/"
+  #   max_mAP50_loss: 0.05
+  #   max_recall_loss: 0.03
+
+masker:
+  level: 1  # 1=GaussianBlur, 2=Mosaic, 3=SolidBox, 4=Synthetic, 5=Removal
+  # level 4 사용 시: legal_review_required: true
+
+# signer:
+#   enabled: true
+#   device_id: "guardian-device-001"
+#   key_path: "/var/lib/rust-guardian/keys/"
+#   chain_state_path: "/var/lib/rust-guardian/chain_state.bin"
+
+output:
+  sinks:
+    - sink_type: file
+      path: "output/"
+
+# api:
+#   enabled: true
+#   address: "0.0.0.0:9090"
+
+# thermal:
+#   enabled: true
+#   warning_threshold: 70.0
+#   critical_threshold: 80.0
+#   check_interval: 5
+
+# ota:
+#   enabled: false
+#   server_url: "https://update.guardian.example.com"
+#   check_interval: 3600
+#   auto_apply_model: true
+#   auto_apply_policy: true
+#   auto_apply_binary: false
+#   rollback_timeout: 300
+
+# audit:
+#   enabled: true
+#   log_path: "/var/log/rust-guardian/audit.jsonl"
+#   retention_days: 90
+
+# agent:
+#   enabled: false
+#   policy_dir: "policies/"
+#   sentry_mode:
+#     enabled: true
+#     idle_fps: 2
+#     active_fps: 10
+#     activation_threshold: 0.5

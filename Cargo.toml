@@ -1,0 +1,85 @@
+[package]
+name = "rust-guardian"
+version = "0.1.0"
+edition = "2021"
+description = "Edge Privacy Filter + Intelligent Agent Architecture in Rust"
+license = "MIT OR Apache-2.0"
+
+[features]
+default = ["cpu", "signing", "audit"]
+# 추론 백엔드
+cpu = []
+cuda = ["guardian-detector/cuda"]
+tensorrt = ["guardian-detector/tensorrt"]
+ncnn = ["guardian-detector/ncnn"]
+tflite = ["guardian-detector/tflite"]
+# 기능 모듈
+signing = ["dep:guardian-signer"]
+audit = ["dep:guardian-audit"]
+audio = ["dep:guardian-audio"]
+wasm-policy = ["dep:guardian-agent"]
+thermal = ["dep:guardian-thermal"]
+ota = ["dep:guardian-ota"]
+# 빌드 타겟
+rpi-optimized = ["ncnn", "thermal"]
+jetson-optimized = ["tensorrt"]
+
+[[bin]]
+name = "rust-guardian"
+path = "src/main.rs"
+
+[dependencies]
+guardian-core = { path = "crates/guardian-core" }
+guardian-capture = { path = "crates/guardian-capture" }
+guardian-detector = { path = "crates/guardian-detector" }
+guardian-masker = { path = "crates/guardian-masker" }
+guardian-output = { path = "crates/guardian-output" }
+guardian-signer = { path = "crates/guardian-signer", optional = true }
+guardian-audit = { path = "crates/guardian-audit", optional = true }
+guardian-audio = { path = "crates/guardian-audio", optional = true }
+guardian-agent = { path = "crates/guardian-agent", optional = true }
+guardian-thermal = { path = "crates/guardian-thermal", optional = true }
+guardian-ota = { path = "crates/guardian-ota", optional = true }
+guardian-api = { path = "crates/guardian-api" }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+[workspace]
+members = [
+    "crates/guardian-core",
+    "crates/guardian-capture",
+    "crates/guardian-detector",
+    "crates/guardian-masker",
+    "crates/guardian-signer",
+    "crates/guardian-audit",
+    "crates/guardian-agent",
+    "crates/guardian-thermal",
+    "crates/guardian-ota",
+    "crates/guardian-output",
+    "crates/guardian-api",
+]
+resolver = "2"
+
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
+bytes = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml = "0.9"
+async-trait = "0.1"
+anyhow = "1"
+thiserror = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+axum = { version = "0.7", features = ["macros"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+reqwest = { version = "0.12", features = ["json"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+image = "0.25"
+ed25519-dalek = { version = "2", features = ["rand_core"] }
+sha2 = "0.10"
+rand = "0.8"

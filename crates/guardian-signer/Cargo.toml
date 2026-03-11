@@ -1,0 +1,16 @@
+[package]
+name = "guardian-signer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+guardian-core = { path = "../guardian-core" }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+ed25519-dalek = { workspace = true }
+sha2 = { workspace = true }
+rand = { workspace = true }

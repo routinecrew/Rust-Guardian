@@ -1,0 +1,10 @@
+[package]
+name = "guardian-masker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+guardian-core = { path = "../guardian-core" }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+image = { workspace = true }

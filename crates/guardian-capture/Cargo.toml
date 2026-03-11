@@ -1,0 +1,13 @@
+[package]
+name = "guardian-capture"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+guardian-core = { path = "../guardian-core" }
+tokio = { workspace = true }
+bytes = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }
+image = { workspace = true }

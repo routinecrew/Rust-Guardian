@@ -1,0 +1,20 @@
+[package]
+name = "guardian-detector"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = []
+cuda = []
+tensorrt = []
+ncnn = []
+tflite = []
+openvino = []
+
+[dependencies]
+guardian-core = { path = "../guardian-core" }
+tokio = { workspace = true }
+anyhow = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }
+image = { workspace = true }
