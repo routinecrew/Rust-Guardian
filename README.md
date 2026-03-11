@@ -295,23 +295,15 @@ We welcome contributions! Here are some good first issues to get started:
 - [ ] CI/CD pipeline configuration
 - [ ] Documentation translation (Korean → English)
 
-### Development with Multi-Agent Architecture
+### Development
 
-This project uses a **6-agent parallel development** methodology. Each agent owns specific crates and can develop independently using mock implementations:
+Each crate can be built and tested independently using mock implementations:
 
 ```bash
-# Run a specific agent
-./run-agents.sh a    # Agent A: Core engine
-./run-agents.sh c    # Agent C: Detector + Masker
-./run-agents.sh d    # Agent D: Signer + Audit
-
-# All agents can build independently
 cargo test -p guardian-core
 cargo test -p guardian-detector
 cargo test -p guardian-signer
 ```
-
-See [PARALLEL_DEV_GUIDE.md](PARALLEL_DEV_GUIDE.md) for the full coordination protocol.
 
 ---
 
